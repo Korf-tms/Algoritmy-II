@@ -4,6 +4,7 @@
 #include <sstream>
 
 
+// reads integers from the first line in the file
 std::vector<int> readIntegersFromFile(const std::string& filename) {
     std::ifstream file(filename);
     std::vector<int> numbersVec;
@@ -14,6 +15,8 @@ std::vector<int> readIntegersFromFile(const std::string& filename) {
     }
 
     std::string line;
+
+    // change if to while to read the whole file
     if (std::getline(file, line)) {
         std::stringstream lineAsStream(line);
         int num;
