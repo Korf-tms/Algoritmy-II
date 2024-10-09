@@ -29,8 +29,7 @@ std::vector<int> readIntegersFromFile(const std::string& filename) {
     return numbersVec;
 }
 
-void test(){
-    std::string filename = "test_file.txt";
+void test(std::string filename){
     std::vector<int> numbers;
 
     numbers = readIntegersFromFile(filename);
@@ -41,6 +40,8 @@ void test(){
     std::cout << "\n";
 }
 
-int main() {
-    test();
+int main(int argc, char* argv[]) {
+    std::string filename = argv[1];
+    test(filename);
+    return 0;
 }
