@@ -1,8 +1,7 @@
 #include <vector>
 #include <iostream>
-#include <cmath>
 
-using std::vector, std::cout, std::size_t, std::pow;
+using std::vector, std::cout, std::size_t;
 
 class myHeap{
     private:
@@ -56,12 +55,12 @@ class myHeap{
         
         // now to restore the heap property
         // instead of heapify, we will go from bottom to the top
-        size_t n = data.size();
-        if( n == 1 ){
+        size_t size = data.size();
+        if( size == 1 ){
             return;
         }
         
-        size_t current_index = n - 1;
+        size_t current_index = size - 1;
         size_t parent_index = (current_index - 1)/2;
         
         while( current_index > 0 and data.at(parent_index) < data.at(current_index)){
@@ -91,10 +90,10 @@ class myHeap{
 
     void printByLevels() const {
         size_t index = 0;
-        size_t n = data.size();
+        size_t size = data.size();
         int level_size = 1;
-        while(index < n){
-            for(size_t i = 0; index < n and i < level_size; i++){
+        while(index < size){
+            for(size_t i = 0; index < size and i < level_size; i++){
                 cout << data[index] << " ";
                 index += 1;
             }
