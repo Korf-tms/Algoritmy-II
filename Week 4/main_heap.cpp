@@ -62,16 +62,12 @@ class myHeap{
         }
         
         size_t current_index = n - 1;
-        int parent_index = (n + 1)/2 - 1;
+        size_t parent_index = (current_index - 1)/2;
         
-        while( parent_index != -1 ){
-            if( data[parent_index] < data[current_index]){
-                std::swap(data.at(parent_index), data.at(current_index));
-            }else{
-                break;
-            }
+        while( current_index > 0 and data.at(parent_index) < data.at(current_index)){
+            std::swap(data.at(parent_index), data.at(current_index));
             current_index = parent_index;
-            parent_index = (current_index + 1)/2 - 1;
+            parent_index = (current_index - 1)/2;
         }
     }
     
