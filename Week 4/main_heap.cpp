@@ -92,14 +92,14 @@ class myHeap{
     void printByLevels() const {
         size_t index = 0;
         size_t n = data.size();
-        int level = 1; 
+        int level_size = 1;
         while(index < n){
-            while(index < n and index < pow(2, level) - 1){
+            for(size_t i = 0; index < n and i < level_size; i++){
                 cout << data[index] << " ";
                 index += 1;
             }
             cout << "\n";
-            level += 1;
+            level_size *= 2;
         }
     }
 };
