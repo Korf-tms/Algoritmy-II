@@ -57,6 +57,8 @@ public:
     int height() const;
 
     ~binarySearchTree();
+
+    void levelOrderTraversal() const;
 };
 
 #endif //AVL_TREE_BINARY_TREE
