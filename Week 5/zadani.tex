@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage[czech]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper, margin=1in]{geometry}
+
+\title{Domácí úkol: Žárliví manželé}
+\author{}
+\date{\today}
+
+\begin{document}
+	
+	\maketitle
+	
+	\section*{Zadání}
+	Úkolem je prozkoumat další z lehce bizarních úloh na překračování řeky.
+	Na jednom břehu řeky se nachází $n$ manželských párů, které je třeba převézt na druhý břeh. Převoz je možný pomocí loďky, která má následující pravidla:
+	
+	\begin{enumerate}
+		\item Loďka může převézt buď jednoho, nebo dva lidi najednou.
+		\item Loďka nemůže plout sama, musí v ní vždy být alespoň jeden člověk.
+		\item Manželé jsou velmi žárliví. Žádný manžel nesnese, aby jeho žena byla ve společnosti jiného muže na stejném břehu, pokud na tomto břehu není přítomna jeho manželka.
+		\item Stejná pravidla platí i v loďce. Manželka a manžel se tedy mohou přepravovat společně na loďce jen pokud patří do stejného páru.
+		\item Na počátku jsou všechny osoby na jednom břehu řeky, v cílovém stavu jsou všichni na druhém břehu.
+		\item Manželé se mohou přemisťovat libovolně, pokud jsou dodržena pravidla o žárlivosti.	
+	\end{enumerate}
+	
+	Vaším úkolem je \textbf{naprogramovat} řešení, které určí minimální počet převozů, které jsou potřeba k tomu, aby všech $n$ párů bylo úspěšně přepraveno na druhý břeh řeky, přičemž je nutné splnit všechna uvedená pravidla.
+	Můžete, stejně jako na cvičení, použít prohledávání do šířky, nebo případně jiný způsob, který hledá nejkratší cestu v odpovídajícím stavovém grafu.
+	
+	
+	
+	\section*{Povolené a nepovolené konfigurace}
+	
+	Následující konfigurace znázorňují, jak mohou být jednotlivé osoby přítomny na břehu. Konfigurace, které jsou v souladu s pravidly žárlivosti, jsou označeny jako povolené, zatímco ty, které pravidla porušují, jsou označeny jako nepovolené.
+	
+	\begin{itemize}
+		\item \texttt{husband1, husband0} – povolená konfigurace (oba manželé jsou sami bez žen)
+		\item \texttt{wife0, wife1} – povolená konfigurace (obě manželky jsou samy bez mužů)
+		\item \texttt{wife0, husband1} – nepovolená konfigurace (\texttt{husband1} je na břehu s cizí ženou a jeho manželka není přítomna)
+		\item \texttt{wife0, wife1, husband0} – povolená konfigurace (\texttt{husband0} je s manželkou)
+		\item \texttt{wife0, husband1, husband0} – povolená konfigurace (\texttt{wife0} je s manželem)
+	\end{itemize}
+	
+	\section*{Řešení pro nízká $n$}
+	
+	Pro $n=2$ manželské páry lze dosáhnout převozu na druhý břeh v 5 převozech, pro 3 je třeba převozů 9, pro 4 to je 13.
+	Vaším úkolem je generalizovat řešení pro obecné $n$ a to \textbf{pomocí programu}, stejně jako na cvičení.
+	
+	
+\end{document}
