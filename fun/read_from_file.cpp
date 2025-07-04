@@ -20,7 +20,7 @@ std::vector<int> readIntegersFromFile(const std::string& filename) {
     if (std::getline(file, line)) {
         std::stringstream lineAsStream(line);
         int num;
-        while (lineAsStream >> num) {
+        while (lineAsStream >> num) {  // NOTE: this assumes that the input file has the data we want
             numbersVec.push_back(num);
         }
     }
