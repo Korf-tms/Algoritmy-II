@@ -19,7 +19,7 @@ class Heap{
         size_t children[2] = {2*index + 1, 2*index + 2};
 
         for(const auto child : children){
-            if(child > data.size()){ break;} // indices can be out of bounds
+            if(child >= data.size()){ break;} // indices can be out of bounds
             if(data[child] > data[largest]){
                 largest = child;
             }
