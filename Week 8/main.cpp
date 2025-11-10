@@ -102,10 +102,10 @@ class linearProbingTable{
 
     void resize(){
         size_t newSize = static_cast<size_t>(table.size() * resizeFactor);
-        
+
         vector<Entry> oldTable = std::move(table);
         table.assign(newSize, Entry{"", EMPTY}); // Re-initialize the table with new size
-        number_of_keys = 0; 
+        number_of_keys = 0;
 
         // Re-hash all previously occupied elements into the new, larger table.
         // This also cleans up all DELETED slots.
@@ -246,17 +246,17 @@ int main(){
 
     std::cout << "Looking up 'banana': " << (lp_table.lookUp("banana") ? "Found" : "Not Found") << std::endl;
     std::cout << "Looking up 'mango': " << (lp_table.lookUp("mango") ? "Found" : "Not Found") << std::endl;
-    
+
     std::cout << "\nRemoving 'banana'...\n";
     lp_table.remove("banana");
     lp_table.print();
 
-    std::cout << "Looking up 'cherry' (should still be findable after 'banana' deletion): " 
+    std::cout << "Looking up 'cherry' (should still be findable after 'banana' deletion): "
               << (lp_table.lookUp("cherry") ? "Found" : "Not Found") << std::endl;
 
     std::cout << "\nInserting 'mango' (should fill the DELETED spot)...\n";
     lp_table.insert("mango");
     lp_table.print();
-    
+
     return 0;
 }
