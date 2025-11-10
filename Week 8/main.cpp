@@ -22,11 +22,13 @@ class naiveHashTable{
         return number_of_keys / static_cast<double>(table.size()) > maxOccupancy;
     }
 
-    void resize(){
+    void resize(){ // 🦛
         size_t newSize = static_cast<size_t>(table.size() * resizeFactor);
         auto oldTable = std::move(table);
         table.assign(newSize, {});
 
+	    // set the number of keys, insert increases it
+	    number_of_keys = 0;
         // rehash all data after changing the size of the table
         for(const auto& bucket : oldTable){
             for(const auto& item : bucket){
@@ -45,7 +47,7 @@ class naiveHashTable{
         return std::find(table[index].begin(), table[index].end(), key) != table[index].end();
     }
 
-    bool insert(const string& key){
+    bool insert(const string& key){  // 👀
         if( lookUp(key) ){ return false;}
         number_of_keys += 1;
         // note we are resizing before adding the new key
@@ -127,7 +129,7 @@ class linearProbingTable{
             table.assign(size, Entry{"", EMPTY});
         }
 
-    bool lookUp(const string& key) const {
+    bool lookUp(const string& key) const {  // 👀
         size_t initialIndex = hashFunction(key, table.size());
         for(size_t i = 0; i < table.size(); i++){
             size_t currentIndex = (initialIndex + i) % table.size();
@@ -188,10 +190,10 @@ class linearProbingTable{
             number_of_keys += 1;
             return true;
         }
-        std::cerr << "This should never happen\n";
+        std::cerr << "This should never happen\n"; // 😿
         return false;
     }
-    
+
     bool remove(const string& key){
         size_t initialIndex = hashFunction(key, table.size());
         for (size_t i = 0; i < table.size(); ++i) {
@@ -211,7 +213,7 @@ class linearProbingTable{
         return false; // Key not found after full table pass
     }
 
-    void print() const {
+    void print() const { // 🦓
         std::cout << "Table with size: " << table.size() << " and " << number_of_keys << "keys.\n";
         for(size_t i = 0; i < table.size(); i++){
             std::cout << i << ": ";
