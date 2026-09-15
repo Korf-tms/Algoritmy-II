@@ -29,7 +29,7 @@ std::vector<int> readIntegersFromFile(const std::string& filename) {
     return numbersVec;
 }
 
-void test(std::string filename){
+void testReadNumbers(std::string filename){
     std::vector<int> numbers;
 
     numbers = readIntegersFromFile(filename);
@@ -40,8 +40,33 @@ void test(std::string filename){
     std::cout << "\n";
 }
 
+std::vector<std::string> readWords(const std::string& path) {
+    std::ifstream in(path);
+
+    std::vector<std::string> words;
+    std::string token;
+    while (in >> token) {  // read by >> stops on whitespace
+        std::string w;
+        for (unsigned char c : token)
+            if (std::isalpha(c))  // TODO: unsigned char: isalpha UB otherwise, also islocal depends on locale what is better than isalpha?
+                w += static_cast<char>(std::tolower(c)); // NOTE: tolower is potential source of pain, depends on locale as well
+        if (!w.empty())
+            words.push_back(std::move(w));
+    }
+    return words;
+}
+
+void testReadWords(const std::string filename){
+    const auto words = readWords(filename);
+
+    for(const std::string word : words){
+        std::cout << word << "\n";
+    }
+}
+
 int main(int argc, char* argv[]) {
     std::string filename = argv[1];
-    test(filename);
+    // testReadNumbers(filename);
+    testReadWords(filename);
     return 0;
 }
