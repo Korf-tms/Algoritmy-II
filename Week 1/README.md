@@ -4,3 +4,6 @@ Cheme vědět, že existuje `auto`, `std::vector`, `std::map`, `std::unordered_m
 
 Implementace jednoduchých algoritmů z přednášky, které pracují se setřízenými poli.
 Konkrétně nalezení nejčastějšího prvku (modus) a zjišťování unikátnosti prvků.
+
+Dále pro radost řešení úlohy z Levitinovy knihy na hledání maximálního počtu proniknutých intervalů.
+Z hlediska znalosti C++ je to ukázka toho, že můžeme pro vlastní typ implementovat porovnání a využít ho v `std::sort`.
