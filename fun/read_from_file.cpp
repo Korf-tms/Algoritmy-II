@@ -1,7 +1,10 @@
 #include <iostream>
 #include <vector>
+#include <string>
+#include <sstream>
 #include <fstream>
 #include <sstream>
+#include <cstdlib>  // for std::exit
 
 
 // reads integers from the first line in the file
@@ -9,9 +12,9 @@ std::vector<int> readIntegersFromFile(const std::string& filename) {
     std::ifstream file(filename);
     std::vector<int> numbersVec;
 
-    if (!file.is_open()) {
+    if (not file.is_open()) {
         std::cerr << "Unable to open file: " << filename << std::endl;
-        return numbersVec;
+        std::exit(1);
     }
 
     std::string line;
@@ -25,7 +28,7 @@ std::vector<int> readIntegersFromFile(const std::string& filename) {
         }
     }
 
-    file.close();
+    // file.close(); is not needed, file will be closed by ifstream desctructor
     return numbersVec;
 }
 
@@ -42,6 +45,10 @@ void testReadNumbers(std::string filename){
 
 std::vector<std::string> readWords(const std::string& path) {
     std::ifstream in(path);
+    if(not in.is_open()) {
+        std::cerr << "Unable to open file: " << filename << std::endl;
+        std::exit(1);
+    }
 
     std::vector<std::string> words;
     std::string token;
