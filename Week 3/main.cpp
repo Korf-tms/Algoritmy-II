@@ -6,6 +6,8 @@
 #include <vector>
 #include <queue>
 
+using itemType = int;
+
 struct Node {
     int key;
     Node* left;
@@ -15,7 +17,7 @@ struct Node {
     Node(int k) : key(k), left(nullptr), right(nullptr), heigth(0) {}
 };
 
-class BinaryTree {
+class AVLTree {
     private:
     Node* root;
 
@@ -84,7 +86,8 @@ class BinaryTree {
         return node;
     }
 
-    Node* insert(Node* node, int key){
+    // insertion helper function, returns the (potentially new) root of the subtree
+    Node* insert(Node* node, itemType key){
         if( node == nullptr ){
             return new Node(key);
         }
@@ -93,56 +96,33 @@ class BinaryTree {
         } else if (key > node->key){
             node->right = insert(node->right, key);
         } else {
+            // this implicitely assumes that not(key < node->key) and not(key > node->key) implies key == node->key
+            // which is a property of the total order relation on integers, might not hold for other types
             return node;
         }
 
         return balance(node);
     }
 
-    bool containsKey(Node* node, int key){
+    bool containsKey(Node* node, itemType key){
         if( node == nullptr ) return false;
-        if( node->key == key){
-            return true;
-        }
         if( key < node->key){
             return containsKey(node->left, key);
-        } else {
-            return containsKey(node->right, key);
-        }
-    }
-
-    Node* findMinKeyNode(Node* node){
-        while(node->left != nullptr){
-            node = node->left;
-        }
-        return node;
-    }
-
-    // TODO: apply correct balancing here
-    Node* erase(Node* node, int key){
-        if( node == nullptr ){
-            return nullptr; // Key not found, there is nothing to remove
-        }
-
-        if( key < node->key){
-            node->left = erase(node->left, key);
         } else if (key > node->key){
-            node->right = erase(node->right, key);
+            return containsKey(node->right, key);
         } else {
-            // key found, this node has to be deleted
-            if( node->left == nullptr or node->right == nullptr){
-                // 0 and 1 child case
-                Node* temp = node->left ? node->left : node->right; // (node->left == nullptr?)
-                delete node;
-                return temp; // note that this can be nullptr, no problem with that
-            }
-            // two children case
-            Node* successor = findMinKeyNode(node->right);
-            node->key = successor->key;
-            node->right = erase(node->right, successor->key);
+            // again, this assumes that not(key < node->key) and not(key > node->key) implies key == node->key
+            return true;
         }
+    }
 
-        return node;
+    // function that removes a specific key, retuns the (potentially new) root of the subtree
+    Node* erase(Node* node, itemType key){
+        // Nodes with one or no children are easy to delete
+        // Nodes with two children are deleted by replacing their key by either 
+        // the largest key in their left subtree or the smallest key in their right subtree, and then deleting that node instead
+        // balancing should be correctly applied on the way back up the recursion tree
+        return node; // TODO: implement this function
     }
 
     void inorderPrint(Node* node) const {
@@ -166,6 +146,7 @@ class BinaryTree {
         std::cout << node->key << " ";
     }
 
+    // function that clears the tree, deleting all nodes
     void clear(Node* node){
         if( node == nullptr ) return;
         clear(node->left);
@@ -175,21 +156,21 @@ class BinaryTree {
 
     public:
 
-    BinaryTree() : root(nullptr) {}
+    AVLTree() : root(nullptr) {}
 
-    ~BinaryTree(){
+    ~AVLTree(){
         clear(root);
     }
 
-    void insert(int key) {
+    void insert(itemType key) {
         root = insert(root, key);
     }
 
-    void erase(int key) {
+    void erase(itemType key) {
         root = erase(root, key);
     }
 
-    bool containsKey(int key){
+    bool containsKey(itemType key){
         return containsKey(root, key);
     }
 
@@ -272,7 +253,7 @@ std::vector<int> readIntegersFromFile(const std::string& filename) {
 int main([[maybe_unused]] int argc, [[maybe_unused]] char* argv[]){
     std::vector<int> data = {5, 6, 8, 3, 2, 4, 7};
 
-    BinaryTree tree;
+    AVLTree tree;
     for(const int item : data){
         tree.insert(item);
     }
